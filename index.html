@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>副業診断</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Space+Grotesk:wght@700&display=swap');
+
+  :root {
+    --bg: #0d0d0d;
+    --surface: #161616;
+    --border: #2a2a2a;
+    --accent: #c8ff00;
+    --accent2: #ff6b35;
+    --text: #f0f0f0;
+    --muted: #888;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans JP', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+  }
+
+  .wrapper {
+    width: 100%;
+    max-width: 480px;
+  }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .header .label {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .header h1 {
+    font-size: 32px;
+    font-weight: 900;
+    line-height: 1.1;
+  }
+  .header h1 span {
+    color: var(--accent);
+  }
+
+  /* PROGRESS */
+  .progress-wrap {
+    margin-bottom: 32px;
+  }
+  .progress-bar {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.4s cubic-bezier(.4,0,.2,1);
+  }
+  .progress-label {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 8px;
+    text-align: right;
+  }
+
+  /* QUESTION CARD */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 24px;
+    animation: fadeUp 0.3s ease;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .q-num {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .q-text {
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .option {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    color: var(--text);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+    text-align: left;
+    transition: border-color 0.15s, background 0.15s, transform 0.1s;
+  }
+  .option:hover {
+    border-color: var(--accent);
+    background: rgba(200,255,0,0.05);
+    transform: translateX(4px);
+  }
+  .option.selected {
+    border-color: var(--accent);
+    background: rgba(200,255,0,0.1);
+    color: var(--accent);
+  }
+
+  /* RESULT */
+  .result-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 24px;
+    animation: fadeUp 0.4s ease;
+    display: none;
+  }
+  .result-card.show { display: block; }
+
+  .result-header {
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .result-title {
+    font-size: 22px;
+    font-weight: 900;
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+  .result-title em {
+    color: var(--accent);
+    font-style: normal;
+  }
+
+  .result-body {
+    font-size: 14px;
+    line-height: 1.9;
+    color: #ccc;
+    white-space: pre-wrap;
+    min-height: 80px;
+  }
+
+  .loading-dots {
+    display: flex;
+    gap: 6px;
+    padding: 16px 0;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: blink 1.2s infinite;
+  }
+  .dot:nth-child(2) { animation-delay: 0.2s; }
+  .dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes blink {
+    0%,80%,100% { opacity: 0.2; }
+    40% { opacity: 1; }
+  }
+
+  .retry-btn {
+    margin-top: 24px;
+    width: 100%;
+    padding: 14px;
+    background: transparent;
+    border: 1px solid var(--accent);
+    border-radius: 10px;
+    color: var(--accent);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .retry-btn:hover { background: rgba(200,255,0,0.1); }
+
+  .error-msg {
+    color: var(--accent2);
+    font-size: 13px;
+    margin-top: 8px;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="header">
+    <div class="label">Free Diagnosis</div>
+    <h1>あなたに合う<br><span>副業</span>を診断する</h1>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width:0%"></div>
+    </div>
+    <div class="progress-label" id="progressLabel">0 / 5</div>
+  </div>
+
+  <!-- QUESTION CARD -->
+  <div class="card" id="questionCard">
+    <div class="q-num" id="qNum">Q1</div>
+    <div class="q-text" id="qText"></div>
+    <div class="options" id="options"></div>
+  </div>
+
+  <!-- RESULT CARD -->
+  <div class="result-card" id="resultCard">
+    <div class="result-header">Your Result</div>
+    <div class="result-title" id="resultTitle"></div>
+    <div class="loading-dots" id="loadingDots" style="display:none">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    </div>
+    <div class="result-body" id="resultBody"></div>
+    <div class="error-msg" id="errorMsg"></div>
+    <button class="retry-btn" id="retryBtn" onclick="reset()">もう一度診断する</button>
+  </div>
+</div>
+
+<script>
+const questions = [
+  {
+    text: "パソコンは使えますか？",
+    options: ["使える", "少しなら", "使えない"]
+  },
+  {
+    text: "在宅でやりたいですか？",
+    options: ["在宅のみ", "外でもOK", "どちらでも"]
+  },
+  {
+    text: "今すぐ収入が必要ですか？",
+    options: ["すぐ欲しい", "どちらでも", "将来型でもOK"]
+  },
+  {
+    text: "作業時間はどれくらい取れますか？",
+    options: ["30分以内", "1〜2時間", "それ以上"]
+  },
+  {
+    text: "新しいことを覚えるのは苦手ですか？",
+    options: ["苦手", "普通", "得意"]
+  }
+];
+
+let current = 0;
+let answers = [];
+
+function render() {
+  const q = questions[current];
+  document.getElementById('qNum').textContent = `Q${current + 1}`;
+  document.getElementById('qText').textContent = q.text;
+
+  const fill = ((current) / questions.length) * 100;
+  document.getElementById('progressFill').style.width = fill + '%';
+  document.getElementById('progressLabel').textContent = `${current} / ${questions.length}`;
+
+  const container = document.getElementById('options');
+  container.innerHTML = '';
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option';
+    btn.textContent = opt;
+    btn.onclick = () => choose(opt);
+    container.appendChild(btn);
+  });
+
+  // Re-trigger animation
+  const card = document.getElementById('questionCard');
+  card.style.animation = 'none';
+  void card.offsetWidth;
+  card.style.animation = '';
+}
+
+function choose(answer) {
+  answers.push(answer);
+  current++;
+
+  if (current < questions.length) {
+    render();
+  } else {
+    showResult();
+  }
+}
+
+function showResult() {
+  document.getElementById('progressFill').style.width = '100%';
+  document.getElementById('progressLabel').textContent = `5 / 5`;
+
+  document.getElementById('questionCard').style.display = 'none';
+  const rc = document.getElementById('resultCard');
+  rc.classList.add('show');
+
+  document.getElementById('resultTitle').innerHTML = '診断中<em>…</em>';
+  document.getElementById('loadingDots').style.display = 'flex';
+  document.getElementById('resultBody').textContent = '';
+  document.getElementById('errorMsg').textContent = '';
+
+  callClaude();
+}
+
+async function callClaude() {
+  const qa = questions.map((q, i) => `Q: ${q.text} → A: ${answers[i]}`).join('\n');
+
+  const prompt = `あなたは副業アドバイザーです。以下のユーザーの回答をもとに、最適な副業を診断してください。
+
+${qa}
+
+副業の候補: ポイ活、アンケートモニター、スキマバイト、Webライター、動画編集、AI副業、転売
+
+【出力形式】
+- 最初の1行: 「◎ おすすめ副業: ○○」（最も合う1〜2個）
+- 次に2〜3行: なぜその副業が合っているかの理由を、ユーザーの回答に触れながら自然な日本語で
+- 最後に1行: 背中を押す一言（明るく、押しつけがましくなく）
+
+文体は短く、テンポよく。絵文字は使わない。`;
+
+  try {
+    const res = await fetch("https://fukugyo-api.siki0524.workers.dev/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1000,
+        messages: [{ role: "user", content: prompt }]
+      })
+    });
+
+    const data = await res.json();
+    const text = data.content?.[0]?.text || '';
+
+    if (!text) throw new Error('empty');
+
+    // Parse first line as title
+    const lines = text.trim().split('\n').filter(l => l.trim());
+    const titleLine = lines[0];
+    const bodyLines = lines.slice(1).join('\n');
+
+    document.getElementById('loadingDots').style.display = 'none';
+    document.getElementById('resultTitle').innerHTML = titleLine.replace('◎', '').trim();
+    
+    const bodyEl = document.getElementById('resultBody');
+    bodyEl.textContent = '';
+
+    // Typewriter effect
+    let i = 0;
+    const chars = bodyLines;
+    const tick = setInterval(() => {
+      bodyEl.textContent += chars[i];
+      i++;
+      if (i >= chars.length) clearInterval(tick);
+    }, 18);
+
+  } catch (e) {
+    document.getElementById('loadingDots').style.display = 'none';
+    document.getElementById('resultTitle').textContent = '診断できませんでした';
+    document.getElementById('errorMsg').textContent = 'エラーが発生しました。もう一度お試しください。';
+  }
+}
+
+function reset() {
+  current = 0;
+  answers = [];
+  document.getElementById('questionCard').style.display = 'block';
+  document.getElementById('resultCard').classList.remove('show');
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
