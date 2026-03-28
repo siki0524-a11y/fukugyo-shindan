@@ -3,18 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>副業診断</title>
+<title>副業診断 | あなたに合う副業タイプを無料診断</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Space+Grotesk:wght@700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
 
   :root {
     --bg: #0d0d0d;
     --surface: #161616;
+    --surface2: #1e1e1e;
     --border: #2a2a2a;
     --accent: #c8ff00;
     --accent2: #ff6b35;
     --text: #f0f0f0;
     --muted: #888;
+    --muted2: #555;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -24,25 +26,111 @@
     color: var(--text);
     font-family: 'Noto Sans JP', sans-serif;
     min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px 16px;
+    padding: 0 0 48px;
   }
 
-  .wrapper { width: 100%; max-width: 480px; }
+  .screen { display: none; }
+  .screen.active { display: block; }
 
-  .header { text-align: center; margin-bottom: 40px; }
-  .header .label { font-size: 11px; letter-spacing: 4px; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; }
-  .header h1 { font-size: 32px; font-weight: 900; line-height: 1.1; }
-  .header h1 span { color: var(--accent); }
+  /* ========== LANDING ========== */
+  .landing {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+    text-align: center;
+  }
+
+  .landing-badge {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    border: 1px solid rgba(200,255,0,0.3);
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 28px;
+  }
+
+  .landing h1 {
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 1.4;
+    margin-bottom: 16px;
+    letter-spacing: -0.3px;
+  }
+
+  .landing-sub {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 320px;
+    margin: 0 auto 36px;
+  }
+
+  .start-btn {
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto 12px;
+    padding: 18px;
+    background: var(--accent);
+    border: none;
+    border-radius: 12px;
+    color: #000;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.1s;
+  }
+  .start-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+  .start-btn:active { transform: translateY(0); }
+
+  .landing-note {
+    font-size: 12px;
+    color: var(--muted2);
+  }
+
+  .landing-features {
+    display: flex;
+    gap: 20px;
+    margin-top: 48px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .feature-item {
+    font-size: 12px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .feature-item::before {
+    content: '✓';
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* ========== QUIZ ========== */
+  .quiz-wrap {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 32px 20px;
+  }
 
   .progress-wrap { margin-bottom: 32px; }
   .progress-bar { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
   .progress-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.4s cubic-bezier(.4,0,.2,1); }
   .progress-label { font-size: 12px; color: var(--muted); margin-top: 8px; text-align: right; }
 
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px 24px; animation: fadeUp 0.3s ease; }
+  .q-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 28px 24px; animation: fadeUp 0.3s ease;
+  }
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(12px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -60,56 +148,79 @@
   }
   .option:hover { border-color: var(--accent); background: rgba(200,255,0,0.05); transform: translateX(4px); }
 
-  .result-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px 24px; animation: fadeUp 0.4s ease; display: none; }
-  .result-card.show { display: block; }
+  /* ========== RESULT ========== */
+  .result-wrap {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 32px 20px;
+    animation: fadeUp 0.4s ease;
+  }
 
-  .result-header { font-size: 11px; letter-spacing: 3px; color: var(--accent); text-transform: uppercase; margin-bottom: 16px; }
-  .result-type { font-size: 26px; font-weight: 900; color: var(--accent); margin-bottom: 6px; line-height: 1.2; }
-  .result-summary { font-size: 14px; color: var(--muted); margin-bottom: 20px; line-height: 1.7; }
+  .result-label { font-size: 11px; letter-spacing: 3px; color: var(--accent); text-transform: uppercase; margin-bottom: 12px; }
 
-  .section-label { font-size: 10px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; }
+  .result-title {
+    font-size: 20px; font-weight: 900; line-height: 1.5; margin-bottom: 24px;
+  }
+  .result-title em { color: var(--accent); font-style: normal; }
+
+  .section {
+    margin-bottom: 24px;
+  }
+  .section-head {
+    font-size: 10px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase;
+    margin-bottom: 10px; display: flex; align-items: center; gap: 8px;
+  }
+  .section-head::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
   .reason-box {
     background: rgba(200,255,0,0.05); border-left: 2px solid var(--accent);
-    padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 20px;
-    font-size: 14px; line-height: 1.8; color: #ccc;
+    padding: 14px 16px; border-radius: 0 10px 10px 0;
+    font-size: 14px; line-height: 1.9; color: #ddd;
   }
 
-  .first-action {
-    background: rgba(255,107,53,0.08); border: 1px solid rgba(255,107,53,0.3);
-    border-radius: 10px; padding: 14px 16px; margin-bottom: 20px;
-    font-size: 14px; line-height: 1.8; color: #eee;
-  }
-  .first-action strong { color: var(--accent2); display: block; margin-bottom: 4px; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
-
-  .sites { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
-  .site-btn {
-    display: flex; align-items: center; justify-content: space-between;
-    background: transparent; border: 1px solid var(--border); border-radius: 10px;
-    padding: 14px 18px; color: var(--text); text-decoration: none;
-    transition: border-color 0.15s, background 0.15s;
-  }
-  .site-btn:hover { border-color: var(--accent); background: rgba(200,255,0,0.05); }
-  .site-btn-left { display: flex; flex-direction: column; gap: 3px; }
-  .site-name { font-size: 15px; font-weight: 700; }
-  .site-label { font-size: 11px; color: var(--muted); }
-  .site-arrow { color: var(--accent); font-size: 16px; }
-
-  .usage-tip {
-    font-size: 12px; color: var(--muted); line-height: 1.7;
-    padding: 10px 14px; border: 1px dashed var(--border); border-radius: 8px; margin-bottom: 16px;
+  .step-box {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px;
+    font-size: 14px; line-height: 1.9; color: #ddd;
   }
 
-  .caution {
-    font-size: 12px; color: #aaa; line-height: 1.7; margin-bottom: 24px;
-    padding: 10px 14px 10px 16px; border-left: 2px solid #333; border-radius: 0 6px 6px 0;
+  .cta-bridge {
+    font-size: 13px; color: var(--muted); margin-bottom: 12px; text-align: center;
   }
 
-  .loading-dots { display: flex; gap: 6px; padding: 32px 0; justify-content: center; }
-  .dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; animation: blink 1.2s infinite; }
-  .dot:nth-child(2) { animation-delay: 0.2s; }
-  .dot:nth-child(3) { animation-delay: 0.4s; }
-  @keyframes blink { 0%,80%,100% { opacity: 0.2; } 40% { opacity: 1; } }
+  .service-cards { display: flex; flex-direction: column; gap: 12px; }
+
+  .service-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden;
+    transition: border-color 0.15s;
+  }
+  .service-card:hover { border-color: var(--accent); }
+
+  .service-card-body { padding: 16px 18px; }
+  .service-name { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+  .service-for { font-size: 11px; color: var(--accent); margin-bottom: 6px; }
+  .service-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  .service-cta {
+    display: block; width: calc(100% - 32px); margin: 0 16px 16px;
+    padding: 13px; background: transparent; border: 1px solid var(--accent);
+    border-radius: 8px; color: var(--accent); font-family: 'Noto Sans JP', sans-serif;
+    font-size: 14px; font-weight: 700; text-align: center; text-decoration: none;
+    transition: background 0.15s;
+  }
+  .service-cta:hover { background: rgba(200,255,0,0.1); }
+
+  .tip-box {
+    background: var(--surface2); border-radius: 10px; padding: 14px 16px;
+    font-size: 13px; color: var(--muted); line-height: 1.8;
+  }
+
+  .bottom-cta {
+    background: rgba(200,255,0,0.05); border: 1px solid rgba(200,255,0,0.2);
+    border-radius: 12px; padding: 20px; text-align: center; margin-bottom: 24px;
+  }
+  .bottom-cta-text { font-size: 13px; color: #ccc; line-height: 1.7; margin-bottom: 14px; }
 
   .retry-btn {
     width: 100%; padding: 14px; background: transparent;
@@ -118,119 +229,267 @@
     transition: border-color 0.15s, color 0.15s;
   }
   .retry-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .error-msg { color: var(--accent2); font-size: 13px; margin-bottom: 16px; }
+
+  .loading-wrap { padding: 60px 0; text-align: center; }
+  .loading-dots { display: inline-flex; gap: 6px; }
+  .dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; animation: blink 1.2s infinite; }
+  .dot:nth-child(2) { animation-delay: 0.2s; }
+  .dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes blink { 0%,80%,100% { opacity: 0.2; } 40% { opacity: 1; } }
+  .loading-text { font-size: 13px; color: var(--muted); margin-top: 16px; }
+
+  .error-msg { color: var(--accent2); font-size: 13px; text-align: center; padding: 24px 0; }
 </style>
 </head>
 <body>
-<div class="wrapper">
-  <div class="header">
-    <div class="label">Free Diagnosis</div>
-    <h1>あなたに合う<br><span>副業</span>を診断する</h1>
-  </div>
 
-  <div class="progress-wrap">
-    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
-    <div class="progress-label" id="progressLabel">0 / 5</div>
+<!-- ========== LANDING ========== -->
+<div id="screenLanding" class="screen active">
+  <div class="landing">
+    <div class="landing-badge">無料・3分</div>
+    <h1>あなたに合う副業タイプを<br>3分で診断</h1>
+    <p class="landing-sub">向いている働き方の傾向から、始めやすい副業と最初の一歩がわかります。</p>
+    <button class="start-btn" onclick="startQuiz()">無料で診断を始める</button>
+    <p class="landing-note">難しい質問はありません。直感で答えてOKです。</p>
+    <div class="landing-features">
+      <span class="feature-item">全5問</span>
+      <span class="feature-item">登録不要</span>
+      <span class="feature-item">スマホ対応</span>
+    </div>
   </div>
+</div>
 
-  <div class="card" id="questionCard">
-    <div class="q-num" id="qNum">Q1</div>
-    <div class="q-text" id="qText"></div>
-    <div class="options" id="options"></div>
+<!-- ========== QUIZ ========== -->
+<div id="screenQuiz" class="screen">
+  <div class="quiz-wrap">
+    <div class="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+      <div class="progress-label" id="progressLabel">0 / 5</div>
+    </div>
+    <div class="q-card" id="qCard">
+      <div class="q-num" id="qNum">Q1</div>
+      <div class="q-text" id="qText"></div>
+      <div class="options" id="options"></div>
+    </div>
   </div>
+</div>
 
-  <div class="result-card" id="resultCard">
-    <div class="result-header">Your Result</div>
-    <div class="loading-dots" id="loadingDots" style="display:none">
-      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+<!-- ========== RESULT ========== -->
+<div id="screenResult" class="screen">
+  <div class="result-wrap">
+    <div id="loadingWrap" class="loading-wrap">
+      <div class="loading-dots">
+        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+      </div>
+      <p class="loading-text">診断中…</p>
     </div>
     <div id="resultContent" style="display:none">
-      <div class="result-type" id="resultType"></div>
-      <div class="result-summary" id="resultSummary"></div>
-      <div class="section-label">向いている理由</div>
-      <div class="reason-box" id="resultReason"></div>
-      <div class="first-action"><strong>最初の一歩</strong><span id="resultFirstAction"></span></div>
-      <div class="section-label">おすすめサービス</div>
-      <div class="sites" id="resultSites"></div>
-      <div class="usage-tip" id="resultUsageTip"></div>
-      <div class="caution" id="resultCaution"></div>
+      <div class="result-label">Your Result</div>
+      <div class="result-title" id="resultTitle"></div>
+
+      <div class="section">
+        <div class="section-head">向いている理由</div>
+        <div class="reason-box" id="resultReason"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">最初の一歩</div>
+        <div class="step-box" id="resultStep"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">おすすめサービス</div>
+        <p class="cta-bridge" id="resultBridge"></p>
+        <div class="service-cards" id="resultServices"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">注意点・使い分け</div>
+        <div class="tip-box" id="resultTip"></div>
+      </div>
+
+      <div class="bottom-cta">
+        <p class="bottom-cta-text" id="resultBottomCta"></p>
+      </div>
+
+      <button class="retry-btn" onclick="reset()">もう一度診断する</button>
     </div>
-    <div class="error-msg" id="errorMsg"></div>
-    <button class="retry-btn" onclick="reset()">もう一度診断する</button>
+    <div id="errorMsg" class="error-msg" style="display:none">
+      エラーが発生しました。<br><br>
+      <button class="retry-btn" onclick="reset()">もう一度試す</button>
+    </div>
   </div>
 </div>
 
 <script>
-const RESULT_DATA = {
+const RESULTS = {
   "ポイ活": {
-    type: "ポイ活",
-    summary: "スマホひとつで、すきま時間にコツコツ稼げる。まず副業の感覚をつかむのにぴったり。",
-    reason: "すぐに収入が欲しい・作業時間が短い・新しいことが苦手、という条件に一番マッチ。難しい知識ゼロで今日から始められます。",
-    first_action: "まず1つアプリに登録して、今日中にポイントを1円でも獲得してみましょう。小さくても「稼げた」感覚が大事です。",
-    site1: { name: "モッピー", label: "案件数が多く初心者に定番", url: "https://moppy.jp/" },
-    site2: { name: "ビッコレ", label: "ビットコインで貯まるポイントサイト", url: "https://biccore.jp/" },
-    usage_tip: "💡 モッピーは定番の買い物・無料登録系案件が充実。ビッコレはポイントを仮想通貨に換えられる。",
-    caution: "⚠ 月5,000円以上を狙うには時間投資が必要。まずはお小遣い稼ぎとして気楽に始めるのがおすすめ。"
+    title: 'あなたに合う副業は「ポイ活」タイプです',
+    reason: "大きく稼ぐより、まずは負担なく始めたいタイプです。日常の延長で取り組みやすく、最初の副業として相性がいいです。",
+    step: "まずは1サイトだけ登録して、無理なく続けられるか試してみましょう。",
+    bridge: "まずは始めやすい定番サイトからチェック",
+    services: [
+      {
+        name: "モッピー",
+        forWho: "ポイ活を初めて始める人に",
+        desc: "案件の種類が多く、無料登録・アンケート・ゲームなど幅広く貯められる定番サービス。",
+        cta: "モッピーを見てみる",
+        url: "https://moppy.jp/"
+      },
+      {
+        name: "ビッコレ",
+        forWho: "ポイントをお金以外で受け取りたい人に",
+        desc: "貯まったポイントをビットコインに換えられる。長期目線で資産を増やしたい人にも向いている。",
+        cta: "ビッコレを見てみる",
+        url: "https://biccore.jp/"
+      }
+    ],
+    tip: "一気に複数登録するより、最初は1つに絞って続けやすさを確認するのがおすすめです。",
+    bottomCta: "迷ったら、まずは定番のポイ活サービスから見てみましょう。"
   },
   "アンケートモニター": {
-    type: "アンケートモニター",
-    summary: "意見を答えるだけでポイントが貯まる。在宅で、思ったより手軽に続けられる副業。",
-    reason: "在宅希望・短時間・難しいことが苦手という条件にぴったり。特別なスキルは一切不要で、日常の感想を答えるだけでOK。",
-    first_action: "まず2〜3サイトに登録して、今週中にアンケートを1本回答してみましょう。登録自体は5分でできます。",
-    site1: { name: "ライフメディア", label: "アンケート数が多く稼ぎやすい", url: "https://lifemedia.jp/" },
-    site2: { name: "楽天インサイト", label: "楽天ポイントで受け取れる", url: "https://insight.rakuten.co.jp/" },
-    usage_tip: "💡 ライフメディアは案件量が豊富で現金換金も可。楽天インサイトは楽天経済圏の人に特におすすめ。",
-    caution: "⚠ 1件あたりの報酬は低め。複数サイトを並行して使うことで収入が安定しやすくなります。"
+    title: 'あなたに合う副業は「アンケートモニター」タイプです',
+    reason: "スキマ時間をコツコツ使うのが苦ではなく、作業のハードルが低い副業と相性がいいタイプです。",
+    step: "登録後すぐに答えられる案件から始めて、生活の中に組み込めるか確認しましょう。",
+    bridge: "空いた時間で始めやすいサービスを見る",
+    services: [
+      {
+        name: "ライフメディア",
+        forWho: "アンケート案件をコツコツこなしたい人に",
+        desc: "アンケートの件数が多く、現金に換えやすい。毎日少しずつ稼ぐ習慣をつけやすいサービス。",
+        cta: "ライフメディアを見てみる",
+        url: "https://lifemedia.jp/"
+      },
+      {
+        name: "楽天インサイト",
+        forWho: "楽天を日常的に使っている人に",
+        desc: "楽天ポイントで受け取れるアンケートサービス。楽天経済圏をすでに使っている人に特におすすめ。",
+        cta: "楽天インサイトを見てみる",
+        url: "https://insight.rakuten.co.jp/"
+      }
+    ],
+    tip: "高単価案件だけを狙うより、まずは続けやすい案件から試す方が習慣化しやすいです。",
+    bottomCta: "スキマ時間で始めるなら、まずは登録しやすいサービスから確認してみてください。"
   },
   "スキマバイト": {
-    type: "スキマバイト（在宅案件）",
-    summary: "空き時間に在宅でできる単発の仕事。データ入力・簡単な作業系など、スキル不要の案件が多い。",
-    reason: "外出不要で在宅OK、すぐ収入が欲しいという条件に合っています。難しい技術は要らず、1案件ずつ短時間で完結する仕事が中心です。",
-    first_action: "クラウドワークスに登録して「初心者歓迎」「データ入力」で検索。まず1件受注することが目標です。",
-    site1: { name: "クラウドワークス", label: "初心者歓迎案件が豊富", url: "https://crowdworks.jp/" },
-    site2: { name: "ランサーズ", label: "タスク形式の単発仕事が多い", url: "https://www.lancers.jp/" },
-    usage_tip: "💡 クラウドワークスはタスク形式で初心者が始めやすい。ランサーズは単発のタスク案件に取り組みやすい。",
-    caution: "⚠ ここで紹介するのは在宅でできるオンライン案件です。現地に行く短時間バイトとは異なります。"
+    title: 'あなたに合う副業は「スキマバイト」タイプです',
+    reason: "短時間で動ける行動力があり、今すぐ収入につなげやすいタイプです。予定に合わせて働きたい人に向いています。",
+    step: "自宅近くや1日だけの案件から見て、無理なく入れる仕事を探しましょう。",
+    bridge: "今すぐ探しやすい仕事を見てみる",
+    services: [
+      {
+        name: "クラウドワークス",
+        forWho: "在宅でスキマ時間に働きたい人に",
+        desc: "データ入力・テキスト系など、初心者でも受けやすい単発案件が多い。自分のペースで取り組める。",
+        cta: "クラウドワークスを見てみる",
+        url: "https://crowdworks.jp/"
+      },
+      {
+        name: "ランサーズ",
+        forWho: "タスク形式で気軽に始めたい人に",
+        desc: "単発のタスク案件が多く、登録してすぐに仕事を探せる。短時間で完結する案件も豊富。",
+        cta: "ランサーズを見てみる",
+        url: "https://www.lancers.jp/"
+      }
+    ],
+    tip: "移動距離や拘束時間まで含めて見ないと、思ったより負担が大きいことがあります。",
+    bottomCta: "まずは近場で入りやすい案件があるかチェックしてみましょう。"
   },
   "Webライター": {
-    type: "Webライター",
-    summary: "文章を書いてお金をもらう仕事。最初は単価が低くても、実績を積むと着実に収入が上がっていく。",
-    reason: "在宅で取り組める・1〜2時間以上時間が取れる・新しいことを学べる、という条件に合っています。書き続けることでスキルは自然と身につきます。",
-    first_action: "クラウドワークスで「ライター 初心者歓迎」で検索し、文字単価0.3円〜の案件に応募してみましょう。まず1本納品することが最初のゴールです。",
-    site1: { name: "クラウドワークス", label: "ライター案件数No.1", url: "https://crowdworks.jp/" },
-    site2: { name: "サグーワークス", label: "ライター特化・テスト合格で単価UP", url: "https://works.sagooo.com/" },
-    usage_tip: "💡 クラウドワークスは案件数が多く応募しやすい。サグーワークスはライター専門で、テスト合格で単価が上がる仕組みがある。",
-    caution: "⚠ 最初の数件は単価が低め。プロフィールと実績を丁寧に作ることで、3ヶ月後には収入が変わることも多いです。"
+    title: 'あなたに合う副業は「Webライター」タイプです',
+    reason: "文章で伝えることに抵抗が少なく、在宅で積み上げていく副業と相性がいいタイプです。",
+    step: "初心者向け案件やタスク案件から入り、実績を少しずつ作るのがおすすめです。",
+    bridge: "未経験から始めやすい案件を探す",
+    services: [
+      {
+        name: "クラウドワークス",
+        forWho: "ライター案件を数多く見たい人に",
+        desc: "国内最大規模のクラウドソーシング。初心者歓迎のライター案件が多く、まず実績を作るのに向いている。",
+        cta: "クラウドワークスを見てみる",
+        url: "https://crowdworks.jp/"
+      },
+      {
+        name: "サグーワークス",
+        forWho: "ライターとして単価を上げていきたい人に",
+        desc: "ライター専門サービス。テストに合格すると単価が上がる仕組みがあり、ステップアップしやすい。",
+        cta: "サグーワークスを見てみる",
+        url: "https://works.sagooo.com/"
+      }
+    ],
+    tip: "最初から高単価案件だけを狙うより、まずは実績作りを優先した方が進みやすいです。",
+    bottomCta: "迷ったら、案件数の多い定番サービスから見てみてください。"
   },
   "動画編集": {
-    type: "動画編集",
-    summary: "YouTubeやSNS向けの動画を編集する仕事。需要が高く、スキルが身につけば単価も上がりやすい。",
-    reason: "在宅OK・まとまった作業時間が取れる・新しいことへの意欲がある、という条件に合っています。最初は無料ソフトで十分始められます。",
-    first_action: "まずCapCutやDaVinci Resolve（無料）をインストールして、入門動画を1本見てみましょう。操作に慣れてからクラウドワークスで案件を探す流れがおすすめです。",
-    site1: { name: "クラウドワークス", label: "動画編集案件が豊富", url: "https://crowdworks.jp/" },
-    site2: { name: "ココナラ", label: "スキルを出品して受注する形式", url: "https://coconala.com/" },
-    usage_tip: "💡 クラウドワークスは企業からの案件が多く安定しやすい。ココナラは自分でサービスを出品するスタイルなので実績が増えてから使うと効果的。",
-    caution: "⚠ ソフトの使い方を覚える時間が最初に必要。焦らず1〜2ヶ月かけて基礎を固めるのが長続きのコツです。"
+    title: 'あなたに合う副業は「動画編集」タイプです',
+    reason: "コツコツ作業が苦になりにくく、スキルを身につけながら収入化を目指したいタイプです。",
+    step: "まずは案件を見る前に、必要スキルや求められる編集レベルを確認しておきましょう。",
+    bridge: "動画編集の案件や学び方を見てみる",
+    services: [
+      {
+        name: "クラウドワークス",
+        forWho: "動画編集の案件を探したい人に",
+        desc: "YouTube向けやSNS向けの編集案件が多い。まずどんな仕事があるか相場感を確認するのにも使える。",
+        cta: "クラウドワークスを見てみる",
+        url: "https://crowdworks.jp/"
+      },
+      {
+        name: "ココナラ",
+        forWho: "自分のスキルを出品したい人に",
+        desc: "自分でサービスを出品する形式。実績が少し積めてきたら、ここで自分のサービスを作るのがおすすめ。",
+        cta: "ココナラを見てみる",
+        url: "https://coconala.com/"
+      }
+    ],
+    tip: "案件だけを急いで探すより、必要な作業レベルを知ってから動いた方がミスマッチを防ぎやすいです。",
+    bottomCta: "まずはどんな案件があるのか、相場感とあわせて見てみましょう。"
   },
   "AI副業": {
-    type: "AI副業",
-    summary: "AIツールを使った文章作成・リサーチ・SNS投稿文作りなど。パソコンが使えてAIに興味があれば今すぐ始められる。",
-    reason: "パソコンが使える・在宅OK・新しいことを学べる、という条件に合っています。ChatGPTなどを活用すれば、ライティングやリサーチ系の仕事を効率よく進められます。",
-    first_action: "まずChatGPT（無料版）を使って、ブログ記事の見出し案や商品説明文を作る練習をしてみましょう。それを持って、クラウドワークスでAIライティング案件を探すのが最短ルートです。",
-    site1: { name: "クラウドワークス", label: "AIライティング・リサーチ案件を探す", url: "https://crowdworks.jp/" },
-    site2: { name: "ランサーズ", label: "AI活用の文章・SNS運用案件あり", url: "https://www.lancers.jp/" },
-    usage_tip: "💡 クラウドワークスで「ChatGPT」「AIライティング」で検索すると関連案件が出てくる。ランサーズはSNS運用補助など幅広い案件がある。",
-    caution: "⚠ AIに丸投げするだけでなく、内容を確認・修正する編集力が求められます。「AIを使いこなす人」として差別化するのがポイント。"
+    title: 'あなたに合う副業は「AI副業」タイプです',
+    reason: "新しいツールに触れることへの抵抗が少なく、効率化しながら取り組む働き方と相性がいいタイプです。",
+    step: "まずはAIを使って受けられる仕事の種類を知り、自分でも対応できそうなものを絞りましょう。",
+    bridge: "AIを活かせる副業を見てみる",
+    services: [
+      {
+        name: "クラウドワークス",
+        forWho: "AIライティング・リサーチ案件を探したい人に",
+        desc: "「ChatGPT」「AIライティング」で検索すると関連案件が出てくる。まず何ができるか確認するのにも使える。",
+        cta: "クラウドワークスを見てみる",
+        url: "https://crowdworks.jp/"
+      },
+      {
+        name: "ランサーズ",
+        forWho: "SNS運用補助や文章系AI案件を探したい人に",
+        desc: "SNS投稿文の作成やリサーチ補助など、AIを活かせる幅広い案件がある。",
+        cta: "ランサーズを見てみる",
+        url: "https://www.lancers.jp/"
+      }
+    ],
+    tip: "「AIを使うこと」自体よりも、何の仕事にどう活かせるかを見る方が重要です。",
+    bottomCta: "まずはAIを活かせる仕事の種類を見て、自分に合いそうなものを探してみてください。"
   },
   "転売": {
-    type: "転売・フリマ販売",
-    summary: "不用品を売るところから始めて、仕入れて利益を出すビジネスへ。自分のペースで動ける副業。",
-    reason: "すぐ収入が欲しい・在宅でもできる・まとまった時間が取れる、という条件に合っています。まず家にある不用品を売るだけでも、副業の感覚がつかめます。",
-    first_action: "まず自宅にある使っていないものをメルカリに出品してみましょう。1品売れると「仕組み」がわかり、次のステップが見えてきます。",
-    site1: { name: "メルカリ", label: "国内最大のフリマアプリ・出品しやすい", url: "https://www.mercari.com/jp/" },
-    site2: { name: "ラクマ", label: "手数料が低め・楽天ポイントと相性◎", url: "https://fril.jp/" },
-    usage_tip: "💡 メルカリは利用者数が多く売れやすい。ラクマは販売手数料が低めなので、売れ行きが安定してきたら使い分けると効果的。",
-    caution: "⚠ 仕入れ転売は在庫リスクがあります。最初は不用品販売から始めて、利益の出し方を体感してからステップアップするのがおすすめ。"
+    title: 'あなたに合う副業は「転売・フリマ販売」タイプです',
+    reason: "相場や需要を見る感覚があり、売れるものを見つけて動くタイプの副業と相性があります。",
+    step: "いきなり仕入れを増やさず、小さく試して回転感覚をつかむことが大切です。",
+    bridge: "転売向きの始め方を確認する",
+    services: [
+      {
+        name: "メルカリ",
+        forWho: "まず不用品を売ることから始めたい人に",
+        desc: "国内最大のフリマアプリ。出品のしやすさと利用者数の多さで、まず感覚をつかむのに最適。",
+        cta: "メルカリを見てみる",
+        url: "https://www.mercari.com/jp/"
+      },
+      {
+        name: "ラクマ",
+        forWho: "手数料を抑えて販売したい人に",
+        desc: "販売手数料がメルカリより低め。売れ行きが安定してきたら、使い分けることでコストを下げられる。",
+        cta: "ラクマを見てみる",
+        url: "https://fril.jp/"
+      }
+    ],
+    tip: "最初から大きく仕入れるより、小さく試して感覚をつかんだ方が失敗しにくいです。",
+    bottomCta: "まずは小さく始めやすい方法から確認してみましょう。"
   }
 };
 
@@ -245,7 +504,20 @@ const questions = [
 let current = 0;
 let answers = [];
 
-function render() {
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function startQuiz() {
+  current = 0;
+  answers = [];
+  show('screenQuiz');
+  renderQ();
+}
+
+function renderQ() {
   const q = questions[current];
   document.getElementById('qNum').textContent = `Q${current + 1}`;
   document.getElementById('qText').textContent = q.text;
@@ -262,7 +534,7 @@ function render() {
     container.appendChild(btn);
   });
 
-  const card = document.getElementById('questionCard');
+  const card = document.getElementById('qCard');
   card.style.animation = 'none';
   void card.offsetWidth;
   card.style.animation = '';
@@ -271,21 +543,21 @@ function render() {
 function choose(answer) {
   answers.push(answer);
   current++;
-  if (current < questions.length) { render(); } else { showResult(); }
-}
-
-function showResult() {
-  document.getElementById('progressFill').style.width = '100%';
-  document.getElementById('progressLabel').textContent = '5 / 5';
-  document.getElementById('questionCard').style.display = 'none';
-  document.getElementById('resultCard').classList.add('show');
-  document.getElementById('loadingDots').style.display = 'flex';
-  document.getElementById('resultContent').style.display = 'none';
-  document.getElementById('errorMsg').textContent = '';
-  callClaude();
+  if (current < questions.length) {
+    renderQ();
+  } else {
+    document.getElementById('progressFill').style.width = '100%';
+    document.getElementById('progressLabel').textContent = '5 / 5';
+    show('screenResult');
+    callClaude();
+  }
 }
 
 async function callClaude() {
+  document.getElementById('loadingWrap').style.display = 'block';
+  document.getElementById('resultContent').style.display = 'none';
+  document.getElementById('errorMsg').style.display = 'none';
+
   const qa = questions.map((q, i) => `Q: ${q.text} → A: ${answers[i]}`).join('\n');
   const prompt = `以下のユーザーの回答をもとに、最も合う副業を1つだけ選んでください。
 
@@ -309,45 +581,46 @@ ${qa}
 
     const data = await res.json();
     const text = (data.content?.[0]?.text || '').trim();
-    const key = Object.keys(RESULT_DATA).find(k => text.includes(k)) || 'ポイ活';
-    const result = RESULT_DATA[key];
-
-    document.getElementById('loadingDots').style.display = 'none';
-    document.getElementById('resultContent').style.display = 'block';
-    document.getElementById('resultType').textContent = result.type;
-    document.getElementById('resultSummary').textContent = result.summary;
-    document.getElementById('resultReason').textContent = result.reason;
-    document.getElementById('resultFirstAction').textContent = result.first_action;
-    document.getElementById('resultUsageTip').textContent = result.usage_tip;
-    document.getElementById('resultCaution').textContent = result.caution;
-
-    const sitesEl = document.getElementById('resultSites');
-    sitesEl.innerHTML = '';
-    [result.site1, result.site2].forEach(site => {
-      const a = document.createElement('a');
-      a.href = site.url;
-      a.target = '_blank';
-      a.rel = 'noopener noreferrer';
-      a.className = 'site-btn';
-      a.innerHTML = `<div class="site-btn-left"><span class="site-name">${site.name}</span><span class="site-label">${site.label}</span></div><span class="site-arrow">→</span>`;
-      sitesEl.appendChild(a);
-    });
+    const key = Object.keys(RESULTS).find(k => text.includes(k)) || 'ポイ活';
+    renderResult(RESULTS[key]);
 
   } catch (e) {
-    document.getElementById('loadingDots').style.display = 'none';
-    document.getElementById('errorMsg').textContent = 'エラーが発生しました。もう一度お試しください。';
+    document.getElementById('loadingWrap').style.display = 'none';
+    document.getElementById('errorMsg').style.display = 'block';
   }
 }
 
-function reset() {
-  current = 0;
-  answers = [];
-  document.getElementById('questionCard').style.display = 'block';
-  document.getElementById('resultCard').classList.remove('show');
-  render();
+function renderResult(r) {
+  document.getElementById('loadingWrap').style.display = 'none';
+  document.getElementById('resultContent').style.display = 'block';
+
+  document.getElementById('resultTitle').innerHTML = r.title.replace(/「(.+?)」/, '「<em>$1</em>」');
+  document.getElementById('resultReason').textContent = r.reason;
+  document.getElementById('resultStep').textContent = r.step;
+  document.getElementById('resultBridge').textContent = r.bridge;
+  document.getElementById('resultTip').textContent = r.tip;
+  document.getElementById('resultBottomCta').textContent = r.bottomCta;
+
+  const servicesEl = document.getElementById('resultServices');
+  servicesEl.innerHTML = '';
+  r.services.forEach(s => {
+    const card = document.createElement('div');
+    card.className = 'service-card';
+    card.innerHTML = `
+      <div class="service-card-body">
+        <div class="service-name">${s.name}</div>
+        <div class="service-for">${s.forWho}</div>
+        <div class="service-desc">${s.desc}</div>
+      </div>
+      <a href="${s.url}" target="_blank" rel="noopener noreferrer" class="service-cta">${s.cta} →</a>
+    `;
+    servicesEl.appendChild(card);
+  });
 }
 
-render();
+function reset() {
+  show('screenLanding');
+}
 </script>
 </body>
 </html>
