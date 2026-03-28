@@ -30,186 +30,95 @@
     padding: 24px 16px;
   }
 
-  .wrapper {
-    width: 100%;
-    max-width: 480px;
-  }
+  .wrapper { width: 100%; max-width: 480px; }
 
-  /* HEADER */
-  .header {
-    text-align: center;
-    margin-bottom: 40px;
-  }
-  .header .label {
-    font-size: 11px;
-    letter-spacing: 4px;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-  .header h1 {
-    font-size: 32px;
-    font-weight: 900;
-    line-height: 1.1;
-  }
-  .header h1 span {
-    color: var(--accent);
-  }
+  .header { text-align: center; margin-bottom: 40px; }
+  .header .label { font-size: 11px; letter-spacing: 4px; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; }
+  .header h1 { font-size: 32px; font-weight: 900; line-height: 1.1; }
+  .header h1 span { color: var(--accent); }
 
-  /* PROGRESS */
-  .progress-wrap {
-    margin-bottom: 32px;
-  }
-  .progress-bar {
-    height: 3px;
-    background: var(--border);
-    border-radius: 2px;
-    overflow: hidden;
-  }
-  .progress-fill {
-    height: 100%;
-    background: var(--accent);
-    border-radius: 2px;
-    transition: width 0.4s cubic-bezier(.4,0,.2,1);
-  }
-  .progress-label {
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 8px;
-    text-align: right;
-  }
+  .progress-wrap { margin-bottom: 32px; }
+  .progress-bar { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.4s cubic-bezier(.4,0,.2,1); }
+  .progress-label { font-size: 12px; color: var(--muted); margin-top: 8px; text-align: right; }
 
-  /* QUESTION CARD */
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 28px 24px;
-    animation: fadeUp 0.3s ease;
-  }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px 24px; animation: fadeUp 0.3s ease; }
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(12px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  .q-num {
-    font-size: 11px;
-    letter-spacing: 3px;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-  .q-text {
-    font-size: 19px;
-    font-weight: 700;
-    line-height: 1.5;
-    margin-bottom: 24px;
-  }
+  .q-num { font-size: 11px; letter-spacing: 3px; color: var(--accent); text-transform: uppercase; margin-bottom: 12px; }
+  .q-text { font-size: 19px; font-weight: 700; line-height: 1.5; margin-bottom: 24px; }
 
-  .options {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
+  .options { display: flex; flex-direction: column; gap: 10px; }
   .option {
-    background: transparent;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 18px;
-    color: var(--text);
-    font-family: 'Noto Sans JP', sans-serif;
-    font-size: 15px;
-    cursor: pointer;
-    text-align: left;
+    background: transparent; border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 18px; color: var(--text); font-family: 'Noto Sans JP', sans-serif;
+    font-size: 15px; cursor: pointer; text-align: left;
     transition: border-color 0.15s, background 0.15s, transform 0.1s;
   }
-  .option:hover {
-    border-color: var(--accent);
-    background: rgba(200,255,0,0.05);
-    transform: translateX(4px);
-  }
-  .option.selected {
-    border-color: var(--accent);
-    background: rgba(200,255,0,0.1);
-    color: var(--accent);
-  }
+  .option:hover { border-color: var(--accent); background: rgba(200,255,0,0.05); transform: translateX(4px); }
 
-  /* RESULT */
-  .result-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 28px 24px;
-    animation: fadeUp 0.4s ease;
-    display: none;
-  }
+  .result-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px 24px; animation: fadeUp 0.4s ease; display: none; }
   .result-card.show { display: block; }
 
-  .result-header {
-    font-size: 12px;
-    letter-spacing: 3px;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-  .result-title {
-    font-size: 22px;
-    font-weight: 900;
-    margin-bottom: 20px;
-    line-height: 1.4;
-  }
-  .result-title em {
-    color: var(--accent);
-    font-style: normal;
+  .result-header { font-size: 11px; letter-spacing: 3px; color: var(--accent); text-transform: uppercase; margin-bottom: 16px; }
+  .result-type { font-size: 26px; font-weight: 900; color: var(--accent); margin-bottom: 6px; line-height: 1.2; }
+  .result-summary { font-size: 14px; color: var(--muted); margin-bottom: 20px; line-height: 1.7; }
+
+  .section-label { font-size: 10px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; }
+
+  .reason-box {
+    background: rgba(200,255,0,0.05); border-left: 2px solid var(--accent);
+    padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 20px;
+    font-size: 14px; line-height: 1.8; color: #ccc;
   }
 
-  .result-body {
-    font-size: 14px;
-    line-height: 1.9;
-    color: #ccc;
-    white-space: pre-wrap;
-    min-height: 80px;
+  .first-action {
+    background: rgba(255,107,53,0.08); border: 1px solid rgba(255,107,53,0.3);
+    border-radius: 10px; padding: 14px 16px; margin-bottom: 20px;
+    font-size: 14px; line-height: 1.8; color: #eee;
+  }
+  .first-action strong { color: var(--accent2); display: block; margin-bottom: 4px; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
+
+  .sites { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+  .site-btn {
+    display: flex; align-items: center; justify-content: space-between;
+    background: transparent; border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 18px; color: var(--text); text-decoration: none;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .site-btn:hover { border-color: var(--accent); background: rgba(200,255,0,0.05); }
+  .site-btn-left { display: flex; flex-direction: column; gap: 3px; }
+  .site-name { font-size: 15px; font-weight: 700; }
+  .site-label { font-size: 11px; color: var(--muted); }
+  .site-arrow { color: var(--accent); font-size: 16px; }
+
+  .usage-tip {
+    font-size: 12px; color: var(--muted); line-height: 1.7;
+    padding: 10px 14px; border: 1px dashed var(--border); border-radius: 8px; margin-bottom: 16px;
   }
 
-  .loading-dots {
-    display: flex;
-    gap: 6px;
-    padding: 16px 0;
+  .caution {
+    font-size: 12px; color: #aaa; line-height: 1.7; margin-bottom: 24px;
+    padding: 10px 14px 10px 16px; border-left: 2px solid #333; border-radius: 0 6px 6px 0;
   }
-  .dot {
-    width: 8px; height: 8px;
-    background: var(--accent);
-    border-radius: 50%;
-    animation: blink 1.2s infinite;
-  }
+
+  .loading-dots { display: flex; gap: 6px; padding: 32px 0; justify-content: center; }
+  .dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; animation: blink 1.2s infinite; }
   .dot:nth-child(2) { animation-delay: 0.2s; }
   .dot:nth-child(3) { animation-delay: 0.4s; }
-  @keyframes blink {
-    0%,80%,100% { opacity: 0.2; }
-    40% { opacity: 1; }
-  }
+  @keyframes blink { 0%,80%,100% { opacity: 0.2; } 40% { opacity: 1; } }
 
   .retry-btn {
-    margin-top: 24px;
-    width: 100%;
-    padding: 14px;
-    background: transparent;
-    border: 1px solid var(--accent);
-    border-radius: 10px;
-    color: var(--accent);
-    font-family: 'Noto Sans JP', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.15s;
+    width: 100%; padding: 14px; background: transparent;
+    border: 1px solid var(--border); border-radius: 10px; color: var(--muted);
+    font-family: 'Noto Sans JP', sans-serif; font-size: 14px; cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
   }
-  .retry-btn:hover { background: rgba(200,255,0,0.1); }
-
-  .error-msg {
-    color: var(--accent2);
-    font-size: 13px;
-    margin-top: 8px;
-  }
+  .retry-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .error-msg { color: var(--accent2); font-size: 13px; margin-bottom: 16px; }
 </style>
 </head>
 <body>
@@ -219,56 +128,118 @@
     <h1>あなたに合う<br><span>副業</span>を診断する</h1>
   </div>
 
-  <!-- PROGRESS -->
-  <div class="progress-wrap" id="progressWrap">
-    <div class="progress-bar">
-      <div class="progress-fill" id="progressFill" style="width:0%"></div>
-    </div>
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
     <div class="progress-label" id="progressLabel">0 / 5</div>
   </div>
 
-  <!-- QUESTION CARD -->
   <div class="card" id="questionCard">
     <div class="q-num" id="qNum">Q1</div>
     <div class="q-text" id="qText"></div>
     <div class="options" id="options"></div>
   </div>
 
-  <!-- RESULT CARD -->
   <div class="result-card" id="resultCard">
     <div class="result-header">Your Result</div>
-    <div class="result-title" id="resultTitle"></div>
     <div class="loading-dots" id="loadingDots" style="display:none">
       <div class="dot"></div><div class="dot"></div><div class="dot"></div>
     </div>
-    <div class="result-body" id="resultBody"></div>
+    <div id="resultContent" style="display:none">
+      <div class="result-type" id="resultType"></div>
+      <div class="result-summary" id="resultSummary"></div>
+      <div class="section-label">向いている理由</div>
+      <div class="reason-box" id="resultReason"></div>
+      <div class="first-action"><strong>最初の一歩</strong><span id="resultFirstAction"></span></div>
+      <div class="section-label">おすすめサービス</div>
+      <div class="sites" id="resultSites"></div>
+      <div class="usage-tip" id="resultUsageTip"></div>
+      <div class="caution" id="resultCaution"></div>
+    </div>
     <div class="error-msg" id="errorMsg"></div>
-    <button class="retry-btn" id="retryBtn" onclick="reset()">もう一度診断する</button>
+    <button class="retry-btn" onclick="reset()">もう一度診断する</button>
   </div>
 </div>
 
 <script>
-const questions = [
-  {
-    text: "パソコンは使えますか？",
-    options: ["使える", "少しなら", "使えない"]
+const RESULT_DATA = {
+  "ポイ活": {
+    type: "ポイ活",
+    summary: "スマホひとつで、すきま時間にコツコツ稼げる。まず副業の感覚をつかむのにぴったり。",
+    reason: "すぐに収入が欲しい・作業時間が短い・新しいことが苦手、という条件に一番マッチ。難しい知識ゼロで今日から始められます。",
+    first_action: "まず1つアプリに登録して、今日中にポイントを1円でも獲得してみましょう。小さくても「稼げた」感覚が大事です。",
+    site1: { name: "モッピー", label: "案件数が多く初心者に定番", url: "https://moppy.jp/" },
+    site2: { name: "ビッコレ", label: "ビットコインで貯まるポイントサイト", url: "https://biccore.jp/" },
+    usage_tip: "💡 モッピーは定番の買い物・無料登録系案件が充実。ビッコレはポイントを仮想通貨に換えられる。",
+    caution: "⚠ 月5,000円以上を狙うには時間投資が必要。まずはお小遣い稼ぎとして気楽に始めるのがおすすめ。"
   },
-  {
-    text: "在宅でやりたいですか？",
-    options: ["在宅のみ", "外でもOK", "どちらでも"]
+  "アンケートモニター": {
+    type: "アンケートモニター",
+    summary: "意見を答えるだけでポイントが貯まる。在宅で、思ったより手軽に続けられる副業。",
+    reason: "在宅希望・短時間・難しいことが苦手という条件にぴったり。特別なスキルは一切不要で、日常の感想を答えるだけでOK。",
+    first_action: "まず2〜3サイトに登録して、今週中にアンケートを1本回答してみましょう。登録自体は5分でできます。",
+    site1: { name: "ライフメディア", label: "アンケート数が多く稼ぎやすい", url: "https://lifemedia.jp/" },
+    site2: { name: "楽天インサイト", label: "楽天ポイントで受け取れる", url: "https://insight.rakuten.co.jp/" },
+    usage_tip: "💡 ライフメディアは案件量が豊富で現金換金も可。楽天インサイトは楽天経済圏の人に特におすすめ。",
+    caution: "⚠ 1件あたりの報酬は低め。複数サイトを並行して使うことで収入が安定しやすくなります。"
   },
-  {
-    text: "今すぐ収入が必要ですか？",
-    options: ["すぐ欲しい", "どちらでも", "将来型でもOK"]
+  "スキマバイト": {
+    type: "スキマバイト（在宅案件）",
+    summary: "空き時間に在宅でできる単発の仕事。データ入力・簡単な作業系など、スキル不要の案件が多い。",
+    reason: "外出不要で在宅OK、すぐ収入が欲しいという条件に合っています。難しい技術は要らず、1案件ずつ短時間で完結する仕事が中心です。",
+    first_action: "クラウドワークスに登録して「初心者歓迎」「データ入力」で検索。まず1件受注することが目標です。",
+    site1: { name: "クラウドワークス", label: "初心者歓迎案件が豊富", url: "https://crowdworks.jp/" },
+    site2: { name: "ランサーズ", label: "タスク形式の単発仕事が多い", url: "https://www.lancers.jp/" },
+    usage_tip: "💡 クラウドワークスはタスク形式で初心者が始めやすい。ランサーズは単発のタスク案件に取り組みやすい。",
+    caution: "⚠ ここで紹介するのは在宅でできるオンライン案件です。現地に行く短時間バイトとは異なります。"
   },
-  {
-    text: "作業時間はどれくらい取れますか？",
-    options: ["30分以内", "1〜2時間", "それ以上"]
+  "Webライター": {
+    type: "Webライター",
+    summary: "文章を書いてお金をもらう仕事。最初は単価が低くても、実績を積むと着実に収入が上がっていく。",
+    reason: "在宅で取り組める・1〜2時間以上時間が取れる・新しいことを学べる、という条件に合っています。書き続けることでスキルは自然と身につきます。",
+    first_action: "クラウドワークスで「ライター 初心者歓迎」で検索し、文字単価0.3円〜の案件に応募してみましょう。まず1本納品することが最初のゴールです。",
+    site1: { name: "クラウドワークス", label: "ライター案件数No.1", url: "https://crowdworks.jp/" },
+    site2: { name: "サグーワークス", label: "ライター特化・テスト合格で単価UP", url: "https://works.sagooo.com/" },
+    usage_tip: "💡 クラウドワークスは案件数が多く応募しやすい。サグーワークスはライター専門で、テスト合格で単価が上がる仕組みがある。",
+    caution: "⚠ 最初の数件は単価が低め。プロフィールと実績を丁寧に作ることで、3ヶ月後には収入が変わることも多いです。"
   },
-  {
-    text: "新しいことを覚えるのは苦手ですか？",
-    options: ["苦手", "普通", "得意"]
+  "動画編集": {
+    type: "動画編集",
+    summary: "YouTubeやSNS向けの動画を編集する仕事。需要が高く、スキルが身につけば単価も上がりやすい。",
+    reason: "在宅OK・まとまった作業時間が取れる・新しいことへの意欲がある、という条件に合っています。最初は無料ソフトで十分始められます。",
+    first_action: "まずCapCutやDaVinci Resolve（無料）をインストールして、入門動画を1本見てみましょう。操作に慣れてからクラウドワークスで案件を探す流れがおすすめです。",
+    site1: { name: "クラウドワークス", label: "動画編集案件が豊富", url: "https://crowdworks.jp/" },
+    site2: { name: "ココナラ", label: "スキルを出品して受注する形式", url: "https://coconala.com/" },
+    usage_tip: "💡 クラウドワークスは企業からの案件が多く安定しやすい。ココナラは自分でサービスを出品するスタイルなので実績が増えてから使うと効果的。",
+    caution: "⚠ ソフトの使い方を覚える時間が最初に必要。焦らず1〜2ヶ月かけて基礎を固めるのが長続きのコツです。"
+  },
+  "AI副業": {
+    type: "AI副業",
+    summary: "AIツールを使った文章作成・リサーチ・SNS投稿文作りなど。パソコンが使えてAIに興味があれば今すぐ始められる。",
+    reason: "パソコンが使える・在宅OK・新しいことを学べる、という条件に合っています。ChatGPTなどを活用すれば、ライティングやリサーチ系の仕事を効率よく進められます。",
+    first_action: "まずChatGPT（無料版）を使って、ブログ記事の見出し案や商品説明文を作る練習をしてみましょう。それを持って、クラウドワークスでAIライティング案件を探すのが最短ルートです。",
+    site1: { name: "クラウドワークス", label: "AIライティング・リサーチ案件を探す", url: "https://crowdworks.jp/" },
+    site2: { name: "ランサーズ", label: "AI活用の文章・SNS運用案件あり", url: "https://www.lancers.jp/" },
+    usage_tip: "💡 クラウドワークスで「ChatGPT」「AIライティング」で検索すると関連案件が出てくる。ランサーズはSNS運用補助など幅広い案件がある。",
+    caution: "⚠ AIに丸投げするだけでなく、内容を確認・修正する編集力が求められます。「AIを使いこなす人」として差別化するのがポイント。"
+  },
+  "転売": {
+    type: "転売・フリマ販売",
+    summary: "不用品を売るところから始めて、仕入れて利益を出すビジネスへ。自分のペースで動ける副業。",
+    reason: "すぐ収入が欲しい・在宅でもできる・まとまった時間が取れる、という条件に合っています。まず家にある不用品を売るだけでも、副業の感覚がつかめます。",
+    first_action: "まず自宅にある使っていないものをメルカリに出品してみましょう。1品売れると「仕組み」がわかり、次のステップが見えてきます。",
+    site1: { name: "メルカリ", label: "国内最大のフリマアプリ・出品しやすい", url: "https://www.mercari.com/jp/" },
+    site2: { name: "ラクマ", label: "手数料が低め・楽天ポイントと相性◎", url: "https://fril.jp/" },
+    usage_tip: "💡 メルカリは利用者数が多く売れやすい。ラクマは販売手数料が低めなので、売れ行きが安定してきたら使い分けると効果的。",
+    caution: "⚠ 仕入れ転売は在庫リスクがあります。最初は不用品販売から始めて、利益の出し方を体感してからステップアップするのがおすすめ。"
   }
+};
+
+const questions = [
+  { text: "パソコンは使えますか？", options: ["使える", "少しなら", "使えない"] },
+  { text: "在宅でやりたいですか？", options: ["在宅のみ", "外でもOK", "どちらでも"] },
+  { text: "今すぐ収入が必要ですか？", options: ["すぐ欲しい", "どちらでも", "将来型でもOK"] },
+  { text: "作業時間はどれくらい取れますか？", options: ["30分以内", "1〜2時間", "それ以上"] },
+  { text: "新しいことを覚えるのは苦手ですか？", options: ["苦手", "普通", "得意"] }
 ];
 
 let current = 0;
@@ -278,14 +249,12 @@ function render() {
   const q = questions[current];
   document.getElementById('qNum').textContent = `Q${current + 1}`;
   document.getElementById('qText').textContent = q.text;
-
-  const fill = ((current) / questions.length) * 100;
-  document.getElementById('progressFill').style.width = fill + '%';
+  document.getElementById('progressFill').style.width = (current / questions.length * 100) + '%';
   document.getElementById('progressLabel').textContent = `${current} / ${questions.length}`;
 
   const container = document.getElementById('options');
   container.innerHTML = '';
-  q.options.forEach((opt, i) => {
+  q.options.forEach(opt => {
     const btn = document.createElement('button');
     btn.className = 'option';
     btn.textContent = opt;
@@ -293,7 +262,6 @@ function render() {
     container.appendChild(btn);
   });
 
-  // Re-trigger animation
   const card = document.getElementById('questionCard');
   card.style.animation = 'none';
   void card.offsetWidth;
@@ -303,45 +271,30 @@ function render() {
 function choose(answer) {
   answers.push(answer);
   current++;
-
-  if (current < questions.length) {
-    render();
-  } else {
-    showResult();
-  }
+  if (current < questions.length) { render(); } else { showResult(); }
 }
 
 function showResult() {
   document.getElementById('progressFill').style.width = '100%';
-  document.getElementById('progressLabel').textContent = `5 / 5`;
-
+  document.getElementById('progressLabel').textContent = '5 / 5';
   document.getElementById('questionCard').style.display = 'none';
-  const rc = document.getElementById('resultCard');
-  rc.classList.add('show');
-
-  document.getElementById('resultTitle').innerHTML = '診断中<em>…</em>';
+  document.getElementById('resultCard').classList.add('show');
   document.getElementById('loadingDots').style.display = 'flex';
-  document.getElementById('resultBody').textContent = '';
+  document.getElementById('resultContent').style.display = 'none';
   document.getElementById('errorMsg').textContent = '';
-
   callClaude();
 }
 
 async function callClaude() {
   const qa = questions.map((q, i) => `Q: ${q.text} → A: ${answers[i]}`).join('\n');
-
-  const prompt = `あなたは副業アドバイザーです。以下のユーザーの回答をもとに、最適な副業を診断してください。
+  const prompt = `以下のユーザーの回答をもとに、最も合う副業を1つだけ選んでください。
 
 ${qa}
 
-副業の候補: ポイ活、アンケートモニター、スキマバイト、Webライター、動画編集、AI副業、転売
+選択肢（必ずこの中から1つだけ答えること）:
+ポイ活、アンケートモニター、スキマバイト、Webライター、動画編集、AI副業、転売
 
-【出力形式】
-- 最初の1行: 「◎ おすすめ副業: ○○」（最も合う1〜2個）
-- 次に2〜3行: なぜその副業が合っているかの理由を、ユーザーの回答に触れながら自然な日本語で
-- 最後に1行: 背中を押す一言（明るく、押しつけがましくなく）
-
-文体は短く、テンポよく。絵文字は使わない。`;
+回答は選択肢の文字列のみ。説明不要。`;
 
   try {
     const res = await fetch("https://fukugyo-api.siki0524.workers.dev/", {
@@ -349,39 +302,39 @@ ${qa}
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         model: "claude-sonnet-4-20250514",
-        max_tokens: 1000,
+        max_tokens: 50,
         messages: [{ role: "user", content: prompt }]
       })
     });
 
     const data = await res.json();
-    const text = data.content?.[0]?.text || '';
-
-    if (!text) throw new Error('empty');
-
-    // Parse first line as title
-    const lines = text.trim().split('\n').filter(l => l.trim());
-    const titleLine = lines[0];
-    const bodyLines = lines.slice(1).join('\n');
+    const text = (data.content?.[0]?.text || '').trim();
+    const key = Object.keys(RESULT_DATA).find(k => text.includes(k)) || 'ポイ活';
+    const result = RESULT_DATA[key];
 
     document.getElementById('loadingDots').style.display = 'none';
-    document.getElementById('resultTitle').innerHTML = titleLine.replace('◎', '').trim();
-    
-    const bodyEl = document.getElementById('resultBody');
-    bodyEl.textContent = '';
+    document.getElementById('resultContent').style.display = 'block';
+    document.getElementById('resultType').textContent = result.type;
+    document.getElementById('resultSummary').textContent = result.summary;
+    document.getElementById('resultReason').textContent = result.reason;
+    document.getElementById('resultFirstAction').textContent = result.first_action;
+    document.getElementById('resultUsageTip').textContent = result.usage_tip;
+    document.getElementById('resultCaution').textContent = result.caution;
 
-    // Typewriter effect
-    let i = 0;
-    const chars = bodyLines;
-    const tick = setInterval(() => {
-      bodyEl.textContent += chars[i];
-      i++;
-      if (i >= chars.length) clearInterval(tick);
-    }, 18);
+    const sitesEl = document.getElementById('resultSites');
+    sitesEl.innerHTML = '';
+    [result.site1, result.site2].forEach(site => {
+      const a = document.createElement('a');
+      a.href = site.url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.className = 'site-btn';
+      a.innerHTML = `<div class="site-btn-left"><span class="site-name">${site.name}</span><span class="site-label">${site.label}</span></div><span class="site-arrow">→</span>`;
+      sitesEl.appendChild(a);
+    });
 
   } catch (e) {
     document.getElementById('loadingDots').style.display = 'none';
-    document.getElementById('resultTitle').textContent = '診断できませんでした';
     document.getElementById('errorMsg').textContent = 'エラーが発生しました。もう一度お試しください。';
   }
 }
