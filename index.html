@@ -184,6 +184,15 @@
     font-size: 14px; line-height: 1.9; color: #ddd;
   }
 
+  .cta-lead-primary {
+    font-size: 13px; color: #bbb; line-height: 1.7;
+    margin-bottom: 14px; padding: 12px 14px;
+    background: rgba(200,255,0,0.04); border-radius: 8px;
+  }
+  .cta-lead-services {
+    font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 12px;
+  }
+
   .cta-bridge {
     font-size: 13px; color: var(--muted); margin-bottom: 12px; text-align: center;
   }
@@ -295,11 +304,13 @@
       <div class="section">
         <div class="section-head">最初の一歩</div>
         <div class="step-box" id="resultStep"></div>
+        <p class="cta-lead-primary" id="resultCtaLeadPrimary"></p>
+        <div class="service-cards" id="resultServicesPrimary"></div>
       </div>
 
       <div class="section">
         <div class="section-head">おすすめサービス</div>
-        <p class="cta-bridge" id="resultBridge"></p>
+        <p class="cta-lead-services" id="resultCtaLeadServices"></p>
         <div class="service-cards" id="resultServices"></div>
       </div>
 
@@ -309,7 +320,8 @@
       </div>
 
       <div class="bottom-cta">
-        <p class="bottom-cta-text" id="resultBottomCta"></p>
+        <p class="bottom-cta-text" id="resultCtaLeadBottom"></p>
+        <a href="#" id="resultCtaButtonBottom" class="start-btn" style="max-width:100%;font-size:14px;padding:14px;margin-top:0;display:block;text-decoration:none;text-align:center;" target="_blank" rel="noopener noreferrer"></a>
       </div>
 
       <button class="retry-btn" onclick="reset()">もう一度診断する</button>
@@ -327,7 +339,9 @@ const RESULTS = {
     title: 'あなたに合う副業は「ポイ活」タイプです',
     reason: "大きく稼ぐより、まずは負担なく始めたいタイプです。日常の延長で取り組みやすく、最初の副業として相性がいいです。",
     step: "まずは1サイトだけ登録して、無理なく続けられるか試してみましょう。",
-    bridge: "まずは始めやすい定番サイトからチェック",
+    ctaLeadPrimary: "まずは登録しやすく、続けやすい定番サービスから見てみましょう。",
+    ctaButton: "始めやすいサービスを見る",
+    ctaLeadServices: "ポイ活は、最初に広げすぎない方が続きやすいです。気になるものを1つ選んで試すのがおすすめです。",
     services: [
       {
         name: "モッピー",
@@ -345,13 +359,16 @@ const RESULTS = {
       }
     ],
     tip: "一気に複数登録するより、最初は1つに絞って続けやすさを確認するのがおすすめです。",
-    bottomCta: "迷ったら、まずは定番のポイ活サービスから見てみましょう。"
+    ctaLeadBottom: "どれから始めるか迷うなら、利用者が多い定番サービスから確認するのが無難です。",
+    ctaButtonBottom: "始めやすいサービスを見る"
   },
   "アンケートモニター": {
     title: 'あなたに合う副業は「アンケートモニター」タイプです',
     reason: "スキマ時間をコツコツ使うのが苦ではなく、作業のハードルが低い副業と相性がいいタイプです。",
     step: "登録後すぐに答えられる案件から始めて、生活の中に組み込めるか確認しましょう。",
-    bridge: "空いた時間で始めやすいサービスを見る",
+    ctaLeadPrimary: "空いた時間で始めやすい案件を、まずは無理なく続けられるものから見てみましょう。",
+    ctaButton: "始めやすいサービスを見る",
+    ctaLeadServices: "アンケート系は、生活の中で続けやすいかどうかが大事です。まずは参加しやすいサービスから確認してみてください。",
     services: [
       {
         name: "ライフメディア",
@@ -369,13 +386,16 @@ const RESULTS = {
       }
     ],
     tip: "高単価案件だけを狙うより、まずは続けやすい案件から試す方が習慣化しやすいです。",
-    bottomCta: "スキマ時間で始めるなら、まずは登録しやすいサービスから確認してみてください。"
+    ctaLeadBottom: "まずは登録しやすく、すぐ始めやすいサービスを見ておくと動きやすいです。",
+    ctaButtonBottom: "始めやすいサービスを見る"
   },
   "スキマバイト": {
     title: 'あなたに合う副業は「スキマバイト」タイプです',
     reason: "短時間で動ける行動力があり、今すぐ収入につなげやすいタイプです。予定に合わせて働きたい人に向いています。",
     step: "自宅近くや1日だけの案件から見て、無理なく入れる仕事を探しましょう。",
-    bridge: "今すぐ探しやすい仕事を見てみる",
+    ctaLeadPrimary: "今すぐ動きやすい案件があるか、近場や短時間の仕事からチェックしてみましょう。",
+    ctaButton: "近くの仕事を見てみる",
+    ctaLeadServices: "スキマバイトは、条件の良さだけでなく通いやすさも大切です。入りやすい案件から見るのがおすすめです。",
     services: [
       {
         name: "クラウドワークス",
@@ -393,13 +413,16 @@ const RESULTS = {
       }
     ],
     tip: "移動距離や拘束時間まで含めて見ないと、思ったより負担が大きいことがあります。",
-    bottomCta: "まずは近場で入りやすい案件があるかチェックしてみましょう。"
+    ctaLeadBottom: "まずは自分の生活圏で入りやすい案件があるかを見てみましょう。",
+    ctaButtonBottom: "近くの仕事を見てみる"
   },
   "Webライター": {
     title: 'あなたに合う副業は「Webライター」タイプです',
     reason: "文章で伝えることに抵抗が少なく、在宅で積み上げていく副業と相性がいいタイプです。",
     step: "初心者向け案件やタスク案件から入り、実績を少しずつ作るのがおすすめです。",
-    bridge: "未経験から始めやすい案件を探す",
+    ctaLeadPrimary: "未経験でも入りやすい案件から見て、実績を作りやすい環境を探してみましょう。",
+    ctaButton: "初心者向け案件を見る",
+    ctaLeadServices: "Webライターは、最初の実績作りが進みやすさを左右します。まずは始めやすい案件があるサービスを見てみてください。",
     services: [
       {
         name: "クラウドワークス",
@@ -417,13 +440,16 @@ const RESULTS = {
       }
     ],
     tip: "最初から高単価案件だけを狙うより、まずは実績作りを優先した方が進みやすいです。",
-    bottomCta: "迷ったら、案件数の多い定番サービスから見てみてください。"
+    ctaLeadBottom: "迷ったら、初心者向け案件が多い定番サービスから確認するのがおすすめです。",
+    ctaButtonBottom: "初心者向け案件を見る"
   },
   "動画編集": {
     title: 'あなたに合う副業は「動画編集」タイプです',
     reason: "コツコツ作業が苦になりにくく、スキルを身につけながら収入化を目指したいタイプです。",
     step: "まずは案件を見る前に、必要スキルや求められる編集レベルを確認しておきましょう。",
-    bridge: "動画編集の案件や学び方を見てみる",
+    ctaLeadPrimary: "まずはどんな案件があるのかを見て、必要なスキル感をつかむところから始めましょう。",
+    ctaButton: "案件を見てみる",
+    ctaLeadServices: "動画編集は、案件を見ることで必要レベルが見えやすくなります。相場感も含めて確認してみてください。",
     services: [
       {
         name: "クラウドワークス",
@@ -441,13 +467,16 @@ const RESULTS = {
       }
     ],
     tip: "案件だけを急いで探すより、必要な作業レベルを知ってから動いた方がミスマッチを防ぎやすいです。",
-    bottomCta: "まずはどんな案件があるのか、相場感とあわせて見てみましょう。"
+    ctaLeadBottom: "いきなり応募を急ぐより、まずは案件の内容を見て全体像をつかむのがおすすめです。",
+    ctaButtonBottom: "案件を見てみる"
   },
   "AI副業": {
     title: 'あなたに合う副業は「AI副業」タイプです',
     reason: "新しいツールに触れることへの抵抗が少なく、効率化しながら取り組む働き方と相性がいいタイプです。",
     step: "まずはAIを使って受けられる仕事の種類を知り、自分でも対応できそうなものを絞りましょう。",
-    bridge: "AIを活かせる副業を見てみる",
+    ctaLeadPrimary: "AIを使って取り組める仕事には幅があるので、まずは自分に合いそうなものを見てみましょう。",
+    ctaButton: "AI副業の選択肢を見る",
+    ctaLeadServices: "AI副業は、ツールそのものより「どんな仕事に活かせるか」を見るのが大切です。始めやすい仕事から確認してみてください。",
     services: [
       {
         name: "クラウドワークス",
@@ -465,13 +494,16 @@ const RESULTS = {
       }
     ],
     tip: "「AIを使うこと」自体よりも、何の仕事にどう活かせるかを見る方が重要です。",
-    bottomCta: "まずはAIを活かせる仕事の種類を見て、自分に合いそうなものを探してみてください。"
+    ctaLeadBottom: "まずは対応できそうな仕事の種類を見て、自分に近いものから選ぶのがおすすめです。",
+    ctaButtonBottom: "AI副業の選択肢を見る"
   },
   "転売": {
     title: 'あなたに合う副業は「転売・フリマ販売」タイプです',
     reason: "相場や需要を見る感覚があり、売れるものを見つけて動くタイプの副業と相性があります。",
     step: "いきなり仕入れを増やさず、小さく試して回転感覚をつかむことが大切です。",
-    bridge: "転売向きの始め方を確認する",
+    ctaLeadPrimary: "いきなり大きく動かず、小さく試しやすい方法から確認してみましょう。",
+    ctaButton: "始め方を見てみる",
+    ctaLeadServices: "転売は、最初に回転感覚をつかむことが大切です。まずは始めやすい選択肢から見てみてください。",
     services: [
       {
         name: "メルカリ",
@@ -489,7 +521,8 @@ const RESULTS = {
       }
     ],
     tip: "最初から大きく仕入れるより、小さく試して感覚をつかんだ方が失敗しにくいです。",
-    bottomCta: "まずは小さく始めやすい方法から確認してみましょう。"
+    ctaLeadBottom: "まずはリスクを抑えて試しやすい始め方から確認するのがおすすめです。",
+    ctaButtonBottom: "始め方を見てみる"
   }
 };
 
@@ -597,10 +630,33 @@ function renderResult(r) {
   document.getElementById('resultTitle').innerHTML = r.title.replace(/「(.+?)」/, '「<em>$1</em>」');
   document.getElementById('resultReason').textContent = r.reason;
   document.getElementById('resultStep').textContent = r.step;
-  document.getElementById('resultBridge').textContent = r.bridge;
+  document.getElementById('resultCtaLeadPrimary').textContent = r.ctaLeadPrimary;
+  document.getElementById('resultCtaLeadServices').textContent = r.ctaLeadServices;
   document.getElementById('resultTip').textContent = r.tip;
-  document.getElementById('resultBottomCta').textContent = r.bottomCta;
+  document.getElementById('resultCtaLeadBottom').textContent = r.ctaLeadBottom;
 
+  // Bottom CTA button → link to first service
+  const bottomBtn = document.getElementById('resultCtaButtonBottom');
+  bottomBtn.textContent = r.ctaButtonBottom;
+  bottomBtn.href = r.services[0].url;
+
+  // Primary CTA (first service only, prominent)
+  const primaryEl = document.getElementById('resultServicesPrimary');
+  primaryEl.innerHTML = '';
+  const ps = r.services[0];
+  const pCard = document.createElement('div');
+  pCard.className = 'service-card';
+  pCard.innerHTML = `
+    <div class="service-card-body">
+      <div class="service-name">${ps.name}</div>
+      <div class="service-for">${ps.forWho}</div>
+      <div class="service-desc">${ps.desc}</div>
+    </div>
+    <a href="${ps.url}" target="_blank" rel="noopener noreferrer" class="service-cta">${r.ctaButton} →</a>
+  `;
+  primaryEl.appendChild(pCard);
+
+  // All services
   const servicesEl = document.getElementById('resultServices');
   servicesEl.innerHTML = '';
   r.services.forEach(s => {
