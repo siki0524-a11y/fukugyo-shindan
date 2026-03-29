@@ -226,10 +226,10 @@
   }
 
   .bottom-cta {
-    background: rgba(200,255,0,0.05); border: 1px solid rgba(200,255,0,0.2);
-    border-radius: 12px; padding: 20px; text-align: center; margin-bottom: 24px;
+    border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px 20px; text-align: left; margin-bottom: 24px;
   }
-  .bottom-cta-text { font-size: 13px; color: #ccc; line-height: 1.7; margin-bottom: 14px; }
+  .bottom-cta-text { font-size: 13px; color: var(--muted); line-height: 1.8; }
 
   .retry-btn {
     width: 100%; padding: 14px; background: transparent;
@@ -321,7 +321,6 @@
 
       <div class="bottom-cta">
         <p class="bottom-cta-text" id="resultCtaLeadBottom"></p>
-        <a href="#" id="resultCtaButtonBottom" class="start-btn" style="max-width:100%;font-size:14px;padding:14px;margin-top:0;display:block;text-decoration:none;text-align:center;" target="_blank" rel="noopener noreferrer"></a>
       </div>
 
       <button class="retry-btn" onclick="reset()">もう一度診断する</button>
@@ -390,31 +389,31 @@ const RESULTS = {
     ctaButtonBottom: "始めやすいサービスを見る"
   },
   "スキマバイト": {
-    title: 'あなたに合う副業は「スキマバイト」タイプです',
-    reason: "短時間で動ける行動力があり、今すぐ収入につなげやすいタイプです。予定に合わせて働きたい人に向いています。",
-    step: "自宅近くや1日だけの案件から見て、無理なく入れる仕事を探しましょう。",
-    ctaLeadPrimary: "今すぐ動きやすい案件があるか、近場や短時間の仕事からチェックしてみましょう。",
-    ctaButton: "近くの仕事を見てみる",
-    ctaLeadServices: "スキマバイトは、条件の良さだけでなく通いやすさも大切です。入りやすい案件から見るのがおすすめです。",
+    title: 'あなたに合う副業は「在宅スキマ副業」タイプです',
+    reason: "空き時間を使って在宅でコツコツ取り組める副業と相性がいいタイプです。短時間で完結する案件が多く、生活リズムを崩さずに始めやすいのが特徴です。",
+    step: "まずはクラウドソーシングサイトで「初心者歓迎」「データ入力」などのタスク案件を見てみましょう。1件こなすだけでも感覚がつかめます。",
+    ctaLeadPrimary: "在宅で取り組みやすい単発案件から、まず1つ探してみましょう。",
+    ctaButton: "在宅案件を見てみる",
+    ctaLeadServices: "短時間で完結する案件が多く、スキマ時間を使って無理なく始められます。まずはどんな仕事があるか確認してみてください。",
     services: [
       {
         name: "クラウドワークス",
         forWho: "在宅でスキマ時間に働きたい人に",
         desc: "データ入力・テキスト系など、初心者でも受けやすい単発案件が多い。自分のペースで取り組める。",
-        cta: "クラウドワークスを見てみる",
+        cta: "クラウドワークスの案件を見る",
         url: "https://crowdworks.jp/"
       },
       {
         name: "ランサーズ",
         forWho: "タスク形式で気軽に始めたい人に",
         desc: "単発のタスク案件が多く、登録してすぐに仕事を探せる。短時間で完結する案件も豊富。",
-        cta: "ランサーズを見てみる",
+        cta: "ランサーズの案件を見る",
         url: "https://www.lancers.jp/"
       }
     ],
-    tip: "移動距離や拘束時間まで含めて見ないと、思ったより負担が大きいことがあります。",
-    ctaLeadBottom: "まずは自分の生活圏で入りやすい案件があるかを見てみましょう。",
-    ctaButtonBottom: "近くの仕事を見てみる"
+    tip: "1件あたりの単価は低めでも、継続しやすい案件を選ぶことで習慣化しやすくなります。作業量より続けやすさを基準に選ぶのがコツです。",
+    ctaLeadBottom: "在宅で無理なく始められる案件から、まずは1つ試してみましょう。",
+    ctaButtonBottom: "在宅案件を見てみる"
   },
   "Webライター": {
     title: 'あなたに合う副業は「Webライター」タイプです',
@@ -634,11 +633,6 @@ function renderResult(r) {
   document.getElementById('resultCtaLeadServices').textContent = r.ctaLeadServices;
   document.getElementById('resultTip').textContent = r.tip;
   document.getElementById('resultCtaLeadBottom').textContent = r.ctaLeadBottom;
-
-  // Bottom CTA button → link to first service
-  const bottomBtn = document.getElementById('resultCtaButtonBottom');
-  bottomBtn.textContent = r.ctaButtonBottom;
-  bottomBtn.href = r.services[0].url;
 
   // Primary CTA (first service only, prominent)
   const primaryEl = document.getElementById('resultServicesPrimary');
